@@ -1,6 +1,0 @@
-{
-  "name": "武汉算力网概览",
-  "description": "武汉城市算力网公共服务平台概览页面高保真原型",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
