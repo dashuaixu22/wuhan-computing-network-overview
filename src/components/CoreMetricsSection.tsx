@@ -40,7 +40,7 @@ export const CoreMetricsSection: React.FC<CoreMetricsSectionProps> = ({
         {/* ======================================================== */}
         <div
           id="theme-card-revenue"
-          className="md:col-span-12 min-[1200px]:col-span-5 relative bg-gradient-to-br from-[#F1F6FF] via-[#F8FAFF] to-[#FFFFFF] rounded-[8px] border border-[#E6EAF2] gov-card-shadow overflow-hidden p-3.5 flex flex-col justify-between"
+          className="md:col-span-12 min-[1200px]:col-span-5 group relative bg-gradient-to-br from-[#F1F6FF] via-[#F8FAFF] to-[#FFFFFF] rounded-[8px] border border-[#E6EAF2] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all duration-200 overflow-hidden p-3.5 flex flex-col justify-between"
         >
           {/* 顶部克制的蓝色强调线 */}
           <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#3978F6] via-[#60A5FA] to-transparent opacity-90" />
@@ -55,7 +55,7 @@ export const CoreMetricsSection: React.FC<CoreMetricsSectionProps> = ({
               {/* 左侧：经营收入与总收入数值（同一体系） */}
               <div className="sm:col-span-7 flex flex-col justify-center">
                 <div className="flex items-center gap-1.5 mb-1.5">
-                  <div className="w-5.5 h-5.5 rounded-full bg-[#EAF1FF] text-[#3978F6] flex items-center justify-center">
+                  <div className="w-5.5 h-5.5 rounded-full bg-[#EAF1FF] text-[#3978F6] flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
                     <TrendingUp className="w-3 h-3" />
                   </div>
                   <span className="text-[13px] font-bold text-[#25324B]">
@@ -66,7 +66,7 @@ export const CoreMetricsSection: React.FC<CoreMetricsSectionProps> = ({
                   </span>
                 </div>
                 <div className="flex items-baseline gap-1.5">
-                  <span className="text-[34px] font-extrabold text-[#1E293B] tracking-tight font-mono leading-none">
+                  <span className="text-[34px] font-extrabold text-[#1E293B] tracking-tight font-mono leading-none group-hover:text-[#3978F6] transition-colors">
                     {metrics.totalRevenue.value}
                   </span>
                   <span className="text-[13px] font-semibold text-[#5F6B7A]">
@@ -77,13 +77,13 @@ export const CoreMetricsSection: React.FC<CoreMetricsSectionProps> = ({
 
               {/* 右侧：内嵌卡片指标（本月收入） */}
               <div className="sm:col-span-5">
-                <div className="py-2.5 px-3 rounded-[6px] bg-white border border-[#DCE4F0] shadow-[0_1px_3px_rgba(0,0,0,0.03)] flex flex-col justify-between">
+                <div className="group/month py-2.5 px-3 rounded-[6px] bg-white border border-[#DCE4F0] hover:border-[#3978F6]/70 shadow-[0_1px_3px_rgba(0,0,0,0.03)] hover:shadow-sm transition-all flex flex-col justify-between">
                   <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] mb-1">
                     <span className="font-semibold text-[#475569]">{metrics.monthRevenue.name}</span>
                     <span className="text-[9.5px] px-1 py-0.2 rounded bg-[#F0F4FA] text-[#2563EB] font-medium">当月</span>
                   </div>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-[19px] font-bold text-[#25324B] font-mono leading-none">
+                    <span className="text-[19px] font-bold text-[#25324B] group-hover/month:text-[#3978F6] transition-colors font-mono leading-none">
                       {metrics.monthRevenue.value}
                     </span>
                     <span className="text-[11px] text-[#5F6B7A] font-medium">
@@ -106,10 +106,10 @@ export const CoreMetricsSection: React.FC<CoreMetricsSectionProps> = ({
         {/* ======================================================== */}
         <div
           id="theme-card-customers"
-          className="md:col-span-6 min-[1200px]:col-span-4 relative bg-white rounded-[8px] border border-[#E6EAF2] gov-card-shadow overflow-hidden p-3.5 flex flex-col justify-between"
+          className="md:col-span-6 min-[1200px]:col-span-4 group relative bg-white rounded-[8px] border border-[#E6EAF2] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all duration-200 overflow-hidden p-3.5 flex flex-col justify-between"
         >
           {/* 右上角非常淡的用户群组线性装饰图形 */}
-          <div className="absolute -right-2 top-2 pointer-events-none opacity-[0.05] text-[#3978F6]">
+          <div className="absolute -right-2 top-2 pointer-events-none opacity-[0.05] group-hover:opacity-[0.08] transition-opacity text-[#3978F6]">
             <Users className="w-20 h-20 stroke-[1]" />
           </div>
 
@@ -117,7 +117,7 @@ export const CoreMetricsSection: React.FC<CoreMetricsSectionProps> = ({
           <div className="relative z-10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
-                <div className="w-5.5 h-5.5 rounded-full bg-[#EAF1FF] text-[#3978F6] flex items-center justify-center">
+                <div className="w-5.5 h-5.5 rounded-full bg-[#EAF1FF] text-[#3978F6] flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
                   <Users className="w-3 h-3" />
                 </div>
                 <span className="text-[12.5px] font-semibold text-[#5F6B7A]">
@@ -130,7 +130,7 @@ export const CoreMetricsSection: React.FC<CoreMetricsSectionProps> = ({
             </div>
 
             <div className="mt-1.5 flex items-baseline gap-1.5">
-              <span className="text-[32px] font-extrabold text-[#1E293B] tracking-tight font-mono leading-none">
+              <span className="text-[32px] font-extrabold text-[#1E293B] tracking-tight group-hover:text-[#3978F6] transition-colors font-mono leading-none">
                 {metrics.totalCustomers.value}
               </span>
               <span className="text-[13px] font-semibold text-[#5F6B7A]">
@@ -141,7 +141,7 @@ export const CoreMetricsSection: React.FC<CoreMetricsSectionProps> = ({
 
           {/* 下半部分：相较上月新增客户 */}
           <div className="relative z-10 mt-2.5 pt-2 border-t border-[#E6EAF2]">
-            <div className="flex items-center justify-between py-1.5 px-2.5 rounded-[5px] bg-[#F9FBFE] border border-[#E6EAF2]/80">
+            <div className="flex items-center justify-between py-1.5 px-2.5 rounded-[5px] bg-[#F9FBFE] border border-[#E6EAF2]/80 hover:bg-[#F0F5FF] hover:border-[#3978F6]/30 transition-colors">
               <span className="text-[12px] text-[#5F6B7A]">
                 相较上月新增客户
               </span>
@@ -166,7 +166,7 @@ export const CoreMetricsSection: React.FC<CoreMetricsSectionProps> = ({
         {/* ======================================================== */}
         <div
           id="theme-card-active"
-          className="md:col-span-6 min-[1200px]:col-span-3 relative bg-white rounded-[8px] border border-[#E6EAF2] gov-card-shadow overflow-hidden p-3.5 flex flex-col justify-between"
+          className="md:col-span-6 min-[1200px]:col-span-3 group relative bg-white rounded-[8px] border border-[#E6EAF2] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all duration-200 overflow-hidden p-3.5 flex flex-col justify-between"
         >
           {/* 背景极浅雷达同心圆信号线装饰 */}
           <div className="absolute right-0 bottom-0 pointer-events-none translate-x-4 translate-y-4">
@@ -181,7 +181,7 @@ export const CoreMetricsSection: React.FC<CoreMetricsSectionProps> = ({
           <div className="relative z-10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
-                <div className="w-5.5 h-5.5 rounded-full bg-[#EAF1FF] text-[#3978F6] flex items-center justify-center">
+                <div className="w-5.5 h-5.5 rounded-full bg-[#EAF1FF] text-[#3978F6] flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
                   <Radio className="w-3 h-3" />
                 </div>
                 <span className="text-[12.5px] font-semibold text-[#5F6B7A]">
@@ -199,7 +199,7 @@ export const CoreMetricsSection: React.FC<CoreMetricsSectionProps> = ({
             </div>
 
             <div className="mt-1.5 flex items-baseline gap-1.5">
-              <span className="text-[32px] font-extrabold text-[#1E293B] tracking-tight font-mono leading-none">
+              <span className="text-[32px] font-extrabold text-[#1E293B] tracking-tight group-hover:text-[#3978F6] transition-colors font-mono leading-none">
                 {metrics.onlineUsers.value}
               </span>
               <span className="text-[13px] font-semibold text-[#5F6B7A]">
@@ -210,7 +210,7 @@ export const CoreMetricsSection: React.FC<CoreMetricsSectionProps> = ({
 
           {/* 下半部分：持续更新与更新时间说明 */}
           <div className="relative z-10 mt-2.5 pt-2 border-t border-[#E6EAF2]">
-            <div className="flex items-center justify-between py-1.5 px-2.5 rounded-[5px] bg-[#F9FBFE] border border-[#E6EAF2]/80">
+            <div className="flex items-center justify-between py-1.5 px-2.5 rounded-[5px] bg-[#F9FBFE] border border-[#E6EAF2]/80 hover:bg-[#F0F5FF] hover:border-[#3978F6]/30 transition-colors">
               <span className="text-[11px] text-[#5F6B7A] flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
                 数据持续更新

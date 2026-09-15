@@ -35,7 +35,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {/* 1. 总算力规模 */}
-            <div className="bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] gov-card-shadow flex flex-col justify-between relative overflow-hidden">
+            <div className="group/item bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all flex flex-col justify-between relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
               <div>
                 <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] mb-0.5">
@@ -45,7 +45,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data }) => {
                   </span>
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[20px] font-extrabold text-[#1E293B] font-mono">
+                  <span className="text-[20px] font-extrabold text-[#1E293B] group-hover/item:text-[#3978F6] transition-colors font-mono">
                     {data.totalCapacity.value.toLocaleString()}
                   </span>
                   <span className="text-[11px] text-[#5F6B7A] font-medium">
@@ -56,11 +56,11 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data }) => {
             </div>
 
             {/* 2. 新增算力规模 */}
-            <div className="bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] gov-card-shadow flex flex-col justify-between relative overflow-hidden">
+            <div className="group/item bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all flex flex-col justify-between relative overflow-hidden">
               <div>
                 <div className="flex items-center justify-between text-[11.5px] text-[#3978F6] mb-0.5">
                   <span className="font-medium text-[#4A5D78] flex items-center gap-1">
-                    <TrendingUp className="w-3 h-3 text-[#3978F6]" />
+                    <TrendingUp className="w-3 h-3 text-[#3978F6] transition-transform duration-200 group-hover/item:translate-x-0.5" />
                     {data.newCapacity.name}
                   </span>
                   {data.newCapacity.badge && (
@@ -70,7 +70,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data }) => {
                   )}
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[20px] font-extrabold text-[#2563EB] font-mono">
+                  <span className="text-[20px] font-extrabold text-[#2563EB] group-hover/item:text-[#1D4ED8] transition-colors font-mono">
                     +{data.newCapacity.value}
                   </span>
                   <span className="text-[11px] text-[#3978F6] font-medium">
@@ -93,7 +93,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {/* 3. 算力商品总数 */}
-            <div className="bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] gov-card-shadow flex flex-col justify-between relative overflow-hidden">
+            <div className="group/item bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all flex flex-col justify-between relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
               <div>
                 <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] mb-0.5">
@@ -103,7 +103,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data }) => {
                   </span>
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[20px] font-extrabold text-[#1E293B] font-mono">
+                  <span className="text-[20px] font-extrabold text-[#1E293B] group-hover/item:text-[#3978F6] transition-colors font-mono">
                     {data.productSupply.total.value}
                   </span>
                   <span className="text-[11px] text-[#5F6B7A]">{data.productSupply.total.unit}</span>
@@ -112,11 +112,11 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data }) => {
             </div>
 
             {/* 4. 新增算力商品数量 */}
-            <div className="bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] gov-card-shadow flex flex-col justify-between relative overflow-hidden">
+            <div className="group/item bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all flex flex-col justify-between relative overflow-hidden">
               <div>
                 <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] font-medium mb-0.5">
                   <span className="truncate flex items-center gap-1 text-[#4A5D78]">
-                    <TrendingUp className="w-3 h-3 text-[#3978F6]" />
+                    <TrendingUp className="w-3 h-3 text-[#3978F6] transition-transform duration-200 group-hover/item:translate-x-0.5" />
                     新增商品数
                   </span>
                   {data.productSupply.newAdd.badge && (
@@ -126,7 +126,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data }) => {
                   )}
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[20px] font-extrabold text-[#2563EB] font-mono">
+                  <span className="text-[20px] font-extrabold text-[#2563EB] group-hover/item:text-[#1D4ED8] transition-colors font-mono">
                     +{data.productSupply.newAdd.value}
                   </span>
                   <span className="text-[11px] text-[#3978F6]">{data.productSupply.newAdd.unit}</span>
@@ -147,7 +147,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {/* 5. 算力订单总数 */}
-            <div className="bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] gov-card-shadow flex flex-col justify-between relative overflow-hidden">
+            <div className="group/item bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all flex flex-col justify-between relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
               <div>
                 <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] mb-0.5">
@@ -157,7 +157,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data }) => {
                   </span>
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[20px] font-extrabold text-[#1E293B] font-mono">
+                  <span className="text-[20px] font-extrabold text-[#1E293B] group-hover/item:text-[#3978F6] transition-colors font-mono">
                     {data.orderStatus.total.value.toLocaleString()}
                   </span>
                   <span className="text-[11px] text-[#5F6B7A]">{data.orderStatus.total.unit}</span>
@@ -166,11 +166,11 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data }) => {
             </div>
 
             {/* 6. 新增算力订单数量 */}
-            <div className="bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] gov-card-shadow flex flex-col justify-between relative overflow-hidden">
+            <div className="group/item bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all flex flex-col justify-between relative overflow-hidden">
               <div>
                 <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] font-medium mb-0.5">
                   <span className="truncate flex items-center gap-1 text-[#4A5D78]">
-                    <TrendingUp className="w-3 h-3 text-[#3978F6]" />
+                    <TrendingUp className="w-3 h-3 text-[#3978F6] transition-transform duration-200 group-hover/item:translate-x-0.5" />
                     新增订单数
                   </span>
                   {data.orderStatus.newAdd.badge && (
@@ -180,7 +180,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data }) => {
                   )}
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[20px] font-extrabold text-[#2563EB] font-mono">
+                  <span className="text-[20px] font-extrabold text-[#2563EB] group-hover/item:text-[#1D4ED8] transition-colors font-mono">
                     +{data.orderStatus.newAdd.value}
                   </span>
                   <span className="text-[11px] text-[#3978F6]">{data.orderStatus.newAdd.unit}</span>

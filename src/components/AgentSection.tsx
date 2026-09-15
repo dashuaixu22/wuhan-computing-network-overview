@@ -34,7 +34,7 @@ export const AgentSection: React.FC<AgentSectionProps> = ({ data }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {/* 智能体产商品总数 */}
-            <div className="bg-white rounded-[6px] p-3 border border-[#DCE4F0] gov-card-shadow flex flex-col justify-between relative overflow-hidden min-h-[78px]">
+            <div className="group/item bg-white rounded-[6px] p-3 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all flex flex-col justify-between relative overflow-hidden min-h-[78px]">
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
               <div>
                 <div className="flex items-center justify-between text-[12px] text-[#5F6B7A] mb-1">
@@ -44,7 +44,7 @@ export const AgentSection: React.FC<AgentSectionProps> = ({ data }) => {
                   </span>
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[23px] font-extrabold text-[#1E293B] font-mono">
+                  <span className="text-[23px] font-extrabold text-[#1E293B] group-hover/item:text-[#3978F6] transition-colors font-mono">
                     {data.productStatus.total.value}
                   </span>
                   <span className="text-[12px] text-[#5F6B7A] font-medium">
@@ -55,11 +55,11 @@ export const AgentSection: React.FC<AgentSectionProps> = ({ data }) => {
             </div>
 
             {/* 新增智能体数量 */}
-            <div className="bg-[#F4F8FE] rounded-[6px] p-3 border border-[#D5E3FA] gov-card-shadow flex flex-col justify-between relative overflow-hidden min-h-[78px]">
+            <div className="group/item bg-[#F4F8FE] rounded-[6px] p-3 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all flex flex-col justify-between relative overflow-hidden min-h-[78px]">
               <div>
                 <div className="flex items-center justify-between text-[12px] text-[#5F6B7A] font-medium mb-1">
                   <span className="truncate flex items-center gap-1 text-[#4A5D78]">
-                    <TrendingUp className="w-3.5 h-3.5 text-[#3978F6]" />
+                    <TrendingUp className="w-3.5 h-3.5 text-[#3978F6] transition-transform duration-200 group-hover/item:translate-x-0.5" />
                     {data.productStatus.newAdd.name}
                   </span>
                   {data.productStatus.newAdd.badge && (
@@ -69,7 +69,7 @@ export const AgentSection: React.FC<AgentSectionProps> = ({ data }) => {
                   )}
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[23px] font-extrabold text-[#2563EB] font-mono">
+                  <span className="text-[23px] font-extrabold text-[#2563EB] group-hover/item:text-[#1D4ED8] transition-colors font-mono">
                     +{data.productStatus.newAdd.value}
                   </span>
                   <span className="text-[12px] text-[#3978F6] font-medium">
@@ -92,7 +92,7 @@ export const AgentSection: React.FC<AgentSectionProps> = ({ data }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {/* 智能体订单总数 */}
-            <div className="bg-white rounded-[6px] p-3 border border-[#DCE4F0] gov-card-shadow flex flex-col justify-between relative overflow-hidden min-h-[78px]">
+            <div className="group/item bg-white rounded-[6px] p-3 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all flex flex-col justify-between relative overflow-hidden min-h-[78px]">
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
               <div>
                 <div className="flex items-center justify-between text-[12px] text-[#5F6B7A] mb-1">
@@ -102,7 +102,7 @@ export const AgentSection: React.FC<AgentSectionProps> = ({ data }) => {
                   </span>
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[23px] font-extrabold text-[#1E293B] font-mono">
+                  <span className="text-[23px] font-extrabold text-[#1E293B] group-hover/item:text-[#3978F6] transition-colors font-mono">
                     {data.orderStatus.total.value.toLocaleString()}
                   </span>
                   <span className="text-[12px] text-[#5F6B7A] font-medium">
@@ -113,11 +113,11 @@ export const AgentSection: React.FC<AgentSectionProps> = ({ data }) => {
             </div>
 
             {/* 新增智能体订单数量 */}
-            <div className="bg-[#F4F8FE] rounded-[6px] p-3 border border-[#D5E3FA] gov-card-shadow flex flex-col justify-between relative overflow-hidden min-h-[78px]">
+            <div className="group/item bg-[#F4F8FE] rounded-[6px] p-3 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all flex flex-col justify-between relative overflow-hidden min-h-[78px]">
               <div>
                 <div className="flex items-center justify-between text-[12px] text-[#5F6B7A] font-medium mb-1">
                   <span className="truncate flex items-center gap-1 text-[#4A5D78]">
-                    <TrendingUp className="w-3.5 h-3.5 text-[#3978F6]" />
+                    <TrendingUp className="w-3.5 h-3.5 text-[#3978F6] transition-transform duration-200 group-hover/item:translate-x-0.5" />
                     {data.orderStatus.newAdd.name}
                   </span>
                   {data.orderStatus.newAdd.badge && (
@@ -127,7 +127,7 @@ export const AgentSection: React.FC<AgentSectionProps> = ({ data }) => {
                   )}
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[23px] font-extrabold text-[#2563EB] font-mono">
+                  <span className="text-[23px] font-extrabold text-[#2563EB] group-hover/item:text-[#1D4ED8] transition-colors font-mono">
                     +{data.orderStatus.newAdd.value}
                   </span>
                   <span className="text-[12px] text-[#3978F6] font-medium">
