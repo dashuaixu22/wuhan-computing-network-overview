@@ -1,7 +1,6 @@
 import React from 'react';
 import { Cpu, Server, Layers, ShoppingBag, ChevronRight, TrendingUp } from 'lucide-react';
 import { ComputePowerData } from '../types';
-import { ComputeTrendChart } from './ComputeTrendChart';
 
 interface ComputeSectionProps {
   data: ComputePowerData;
@@ -33,207 +32,202 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data, onCardClic
         </button>
       </div>
 
-      {/* 空间重构设计：上部并排3大核心子板块（资源能力、商品供给、订单情况），下部承托30日算力规模发展趋势折线 */}
-      <div className="space-y-3">
-        {/* 三个子板块网格并排 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {/* 子板块 1：资源能力 */}
-          <div className="rounded-[6px] bg-[#F9FBFE] border border-[#E6EAF2] p-2.5 flex flex-col justify-between">
-            <div className="flex items-center gap-1.5 mb-2">
-              <div className="p-1 rounded bg-[#EAF1FF] text-[#3978F6]">
-                <Server className="w-3 h-3" />
-              </div>
-              <span className="text-[12.5px] font-semibold text-[#25324B]">资源能力</span>
+      {/* 原有六个核心指标：并排3大核心子板块（资源能力、商品供给、订单情况，各2个指标共6个） */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        {/* 子板块 1：资源能力（总算力规模 + 新增算力规模） */}
+        <div className="rounded-[6px] bg-[#F9FBFE] border border-[#E6EAF2] p-2.5 flex flex-col justify-between">
+          <div className="flex items-center gap-1.5 mb-2">
+            <div className="p-1 rounded bg-[#EAF1FF] text-[#3978F6]">
+              <Server className="w-3 h-3" />
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {/* 总算力规模（存量基座卡：强化总数视觉，沉稳深色） */}
-              <div
-                onClick={() => onCardClick(data.totalCapacity.name)}
-                tabIndex={0}
-                role="button"
-                className="bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-              >
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
-                <div>
-                  <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] mb-0.5">
-                    <span className="font-semibold text-[#25324B]">{data.totalCapacity.name}</span>
-                    <span className="text-[9.5px] px-1 py-0.2 rounded bg-[#F0F4FA] text-[#5F6B7A] font-medium">总存量</span>
-                  </div>
-                  <div className="flex items-baseline gap-1 my-0.5">
-                    <span className="text-[20px] font-extrabold text-[#1E293B] group-hover:text-[#3978F6] font-mono transition-colors">
-                      {data.totalCapacity.value.toLocaleString()}
-                    </span>
-                    <span className="text-[11px] text-[#5F6B7A] font-medium">
-                      {data.totalCapacity.unit}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* 新增算力规模（增量动态卡：轻浅蓝底，绿色/蓝色动态强调） */}
-              <div
-                onClick={() => onCardClick(data.newCapacity.name)}
-                tabIndex={0}
-                role="button"
-                className="bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-              >
-                <div>
-                  <div className="flex items-center justify-between text-[11.5px] text-[#3978F6] mb-0.5">
-                    <span className="font-medium text-[#4A5D78] flex items-center gap-1">
-                      <TrendingUp className="w-3 h-3 text-[#3978F6]" />
-                      {data.newCapacity.name}
-                    </span>
-                    {data.newCapacity.badge && (
-                      <span className="text-[9.5px] bg-[#E5EEFF] text-[#2563EB] font-medium px-1 py-0.2 rounded border border-[#C9DCFF]">
-                        {data.newCapacity.badge}
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex items-baseline gap-1 my-0.5">
-                    <span className="text-[20px] font-extrabold text-[#2563EB] group-hover:text-[#1D4ED8] font-mono transition-colors">
-                      +{data.newCapacity.value}
-                    </span>
-                    <span className="text-[11px] text-[#3978F6] font-medium">
-                      {data.newCapacity.unit}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <span className="text-[12.5px] font-semibold text-[#25324B]">资源能力</span>
           </div>
 
-          {/* 子板块 2：商品供给 */}
-          <div className="rounded-[6px] bg-[#F9FBFE] border border-[#E6EAF2] p-2.5 flex flex-col justify-between">
-            <div className="flex items-center gap-1.5 mb-2">
-              <div className="p-1 rounded bg-[#EAF1FF] text-[#3978F6]">
-                <Layers className="w-3 h-3" />
-              </div>
-              <span className="text-[12.5px] font-semibold text-[#25324B]">商品供给</span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {/* 算力商品总数（总数卡） */}
-              <div
-                onClick={() => onCardClick(data.productSupply.total.name)}
-                tabIndex={0}
-                role="button"
-                className="bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-              >
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
-                <div>
-                  <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] mb-0.5">
-                    <span className="font-semibold text-[#25324B] truncate">{data.productSupply.total.name}</span>
-                    <span className="text-[9.5px] px-1 py-0.2 rounded bg-[#F0F4FA] text-[#5F6B7A] font-medium">总存量</span>
-                  </div>
-                  <div className="flex items-baseline gap-1 my-0.5">
-                    <span className="text-[20px] font-extrabold text-[#1E293B] group-hover:text-[#3978F6] font-mono transition-colors">
-                      {data.productSupply.total.value}
-                    </span>
-                    <span className="text-[11px] text-[#5F6B7A]">{data.productSupply.total.unit}</span>
-                  </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {/* 1. 总算力规模 */}
+            <div
+              onClick={() => onCardClick(data.totalCapacity.name)}
+              tabIndex={0}
+              role="button"
+              className="bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
+              <div>
+                <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] mb-0.5">
+                  <span className="font-semibold text-[#25324B]">{data.totalCapacity.name}</span>
+                  <span className="text-[9.5px] px-1 py-0.2 rounded bg-[#F0F4FA] text-[#5F6B7A] font-medium">
+                    {data.totalCapacity.badge || '总存量'}
+                  </span>
                 </div>
-              </div>
-
-              {/* 新增算力商品数量（新增动态卡） */}
-              <div
-                onClick={() => onCardClick(data.productSupply.newAdd.name)}
-                tabIndex={0}
-                role="button"
-                className="bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-              >
-                <div>
-                  <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] font-medium mb-0.5">
-                    <span className="truncate flex items-center gap-1 text-[#4A5D78]">
-                      <TrendingUp className="w-3 h-3 text-[#3978F6]" />
-                      新增商品数
-                    </span>
-                    {data.productSupply.newAdd.badge && (
-                      <span className="text-[9.5px] bg-[#E5EEFF] text-[#2563EB] font-medium px-1 py-0.2 rounded border border-[#C9DCFF]">
-                        {data.productSupply.newAdd.badge}
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex items-baseline gap-1 my-0.5">
-                    <span className="text-[20px] font-extrabold text-[#2563EB] group-hover:text-[#1D4ED8] font-mono transition-colors">
-                      +{data.productSupply.newAdd.value}
-                    </span>
-                    <span className="text-[11px] text-[#3978F6]">{data.productSupply.newAdd.unit}</span>
-                  </div>
+                <div className="flex items-baseline gap-1 my-0.5">
+                  <span className="text-[20px] font-extrabold text-[#1E293B] group-hover:text-[#3978F6] font-mono transition-colors">
+                    {data.totalCapacity.value.toLocaleString()}
+                  </span>
+                  <span className="text-[11px] text-[#5F6B7A] font-medium">
+                    {data.totalCapacity.unit}
+                  </span>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* 子板块 3：订单情况 */}
-          <div className="rounded-[6px] bg-[#F9FBFE] border border-[#E6EAF2] p-2.5 flex flex-col justify-between">
-            <div className="flex items-center gap-1.5 mb-2">
-              <div className="p-1 rounded bg-[#EAF1FF] text-[#3978F6]">
-                <ShoppingBag className="w-3 h-3" />
-              </div>
-              <span className="text-[12.5px] font-semibold text-[#25324B]">订单情况</span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {/* 算力订单总数（总数卡） */}
-              <div
-                onClick={() => onCardClick(data.orderStatus.total.name)}
-                tabIndex={0}
-                role="button"
-                className="bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-              >
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
-                <div>
-                  <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] mb-0.5">
-                    <span className="font-semibold text-[#25324B] truncate">{data.orderStatus.total.name}</span>
-                    <span className="text-[9.5px] px-1 py-0.2 rounded bg-[#F0F4FA] text-[#5F6B7A] font-medium">累计</span>
-                  </div>
-                  <div className="flex items-baseline gap-1 my-0.5">
-                    <span className="text-[20px] font-extrabold text-[#1E293B] group-hover:text-[#3978F6] font-mono transition-colors">
-                      {data.orderStatus.total.value.toLocaleString()}
+            {/* 2. 新增算力规模 */}
+            <div
+              onClick={() => onCardClick(data.newCapacity.name)}
+              tabIndex={0}
+              role="button"
+              className="bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
+            >
+              <div>
+                <div className="flex items-center justify-between text-[11.5px] text-[#3978F6] mb-0.5">
+                  <span className="font-medium text-[#4A5D78] flex items-center gap-1">
+                    <TrendingUp className="w-3 h-3 text-[#3978F6]" />
+                    {data.newCapacity.name}
+                  </span>
+                  {data.newCapacity.badge && (
+                    <span className="text-[9.5px] bg-[#E5EEFF] text-[#2563EB] font-medium px-1 py-0.2 rounded border border-[#C9DCFF]">
+                      {data.newCapacity.badge}
                     </span>
-                    <span className="text-[11px] text-[#5F6B7A]">{data.orderStatus.total.unit}</span>
-                  </div>
+                  )}
                 </div>
-              </div>
-
-              {/* 新增算力订单数量（新增动态卡） */}
-              <div
-                onClick={() => onCardClick(data.orderStatus.newAdd.name)}
-                tabIndex={0}
-                role="button"
-                className="bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-              >
-                <div>
-                  <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] font-medium mb-0.5">
-                    <span className="truncate flex items-center gap-1 text-[#4A5D78]">
-                      <TrendingUp className="w-3 h-3 text-[#3978F6]" />
-                      新增订单数
-                    </span>
-                    {data.orderStatus.newAdd.badge && (
-                      <span className="text-[9.5px] bg-[#E5EEFF] text-[#2563EB] font-medium px-1 py-0.2 rounded border border-[#C9DCFF]">
-                        {data.orderStatus.newAdd.badge}
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex items-baseline gap-1 my-0.5">
-                    <span className="text-[20px] font-extrabold text-[#2563EB] group-hover:text-[#1D4ED8] font-mono transition-colors">
-                      +{data.orderStatus.newAdd.value}
-                    </span>
-                    <span className="text-[11px] text-[#3978F6]">{data.orderStatus.newAdd.unit}</span>
-                  </div>
+                <div className="flex items-baseline gap-1 my-0.5">
+                  <span className="text-[20px] font-extrabold text-[#2563EB] group-hover:text-[#1D4ED8] font-mono transition-colors">
+                    +{data.newCapacity.value}
+                  </span>
+                  <span className="text-[11px] text-[#3978F6] font-medium">
+                    {data.newCapacity.unit}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* 宽幅一体化近30日总算力规模变化趋势图 */}
-        <div className="rounded-[6px] bg-[#F9FBFE] border border-[#E6EAF2] p-2.5">
-          <ComputeTrendChart
-            data={data.totalCapacity.trend30Days}
-            unit={data.totalCapacity.unit}
-          />
+        {/* 子板块 2：商品供给（算力商品总数 + 新增算力商品数） */}
+        <div className="rounded-[6px] bg-[#F9FBFE] border border-[#E6EAF2] p-2.5 flex flex-col justify-between">
+          <div className="flex items-center gap-1.5 mb-2">
+            <div className="p-1 rounded bg-[#EAF1FF] text-[#3978F6]">
+              <Layers className="w-3 h-3" />
+            </div>
+            <span className="text-[12.5px] font-semibold text-[#25324B]">商品供给</span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {/* 3. 算力商品总数 */}
+            <div
+              onClick={() => onCardClick(data.productSupply.total.name)}
+              tabIndex={0}
+              role="button"
+              className="bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
+              <div>
+                <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] mb-0.5">
+                  <span className="font-semibold text-[#25324B] truncate">{data.productSupply.total.name}</span>
+                  <span className="text-[9.5px] px-1 py-0.2 rounded bg-[#F0F4FA] text-[#5F6B7A] font-medium">
+                    {data.productSupply.total.badge || '总存量'}
+                  </span>
+                </div>
+                <div className="flex items-baseline gap-1 my-0.5">
+                  <span className="text-[20px] font-extrabold text-[#1E293B] group-hover:text-[#3978F6] font-mono transition-colors">
+                    {data.productSupply.total.value}
+                  </span>
+                  <span className="text-[11px] text-[#5F6B7A]">{data.productSupply.total.unit}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* 4. 新增算力商品数量 */}
+            <div
+              onClick={() => onCardClick(data.productSupply.newAdd.name)}
+              tabIndex={0}
+              role="button"
+              className="bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
+            >
+              <div>
+                <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] font-medium mb-0.5">
+                  <span className="truncate flex items-center gap-1 text-[#4A5D78]">
+                    <TrendingUp className="w-3 h-3 text-[#3978F6]" />
+                    新增商品数
+                  </span>
+                  {data.productSupply.newAdd.badge && (
+                    <span className="text-[9.5px] bg-[#E5EEFF] text-[#2563EB] font-medium px-1 py-0.2 rounded border border-[#C9DCFF]">
+                      {data.productSupply.newAdd.badge}
+                    </span>
+                  )}
+                </div>
+                <div className="flex items-baseline gap-1 my-0.5">
+                  <span className="text-[20px] font-extrabold text-[#2563EB] group-hover:text-[#1D4ED8] font-mono transition-colors">
+                    +{data.productSupply.newAdd.value}
+                  </span>
+                  <span className="text-[11px] text-[#3978F6]">{data.productSupply.newAdd.unit}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 子板块 3：订单情况（算力订单总数 + 新增算力订单数） */}
+        <div className="rounded-[6px] bg-[#F9FBFE] border border-[#E6EAF2] p-2.5 flex flex-col justify-between">
+          <div className="flex items-center gap-1.5 mb-2">
+            <div className="p-1 rounded bg-[#EAF1FF] text-[#3978F6]">
+              <ShoppingBag className="w-3 h-3" />
+            </div>
+            <span className="text-[12.5px] font-semibold text-[#25324B]">订单情况</span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {/* 5. 算力订单总数 */}
+            <div
+              onClick={() => onCardClick(data.orderStatus.total.name)}
+              tabIndex={0}
+              role="button"
+              className="bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
+              <div>
+                <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] mb-0.5">
+                  <span className="font-semibold text-[#25324B] truncate">{data.orderStatus.total.name}</span>
+                  <span className="text-[9.5px] px-1 py-0.2 rounded bg-[#F0F4FA] text-[#5F6B7A] font-medium">
+                    {data.orderStatus.total.badge || '累计'}
+                  </span>
+                </div>
+                <div className="flex items-baseline gap-1 my-0.5">
+                  <span className="text-[20px] font-extrabold text-[#1E293B] group-hover:text-[#3978F6] font-mono transition-colors">
+                    {data.orderStatus.total.value.toLocaleString()}
+                  </span>
+                  <span className="text-[11px] text-[#5F6B7A]">{data.orderStatus.total.unit}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* 6. 新增算力订单数量 */}
+            <div
+              onClick={() => onCardClick(data.orderStatus.newAdd.name)}
+              tabIndex={0}
+              role="button"
+              className="bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
+            >
+              <div>
+                <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] font-medium mb-0.5">
+                  <span className="truncate flex items-center gap-1 text-[#4A5D78]">
+                    <TrendingUp className="w-3 h-3 text-[#3978F6]" />
+                    新增订单数
+                  </span>
+                  {data.orderStatus.newAdd.badge && (
+                    <span className="text-[9.5px] bg-[#E5EEFF] text-[#2563EB] font-medium px-1 py-0.2 rounded border border-[#C9DCFF]">
+                      {data.orderStatus.newAdd.badge}
+                    </span>
+                  )}
+                </div>
+                <div className="flex items-baseline gap-1 my-0.5">
+                  <span className="text-[20px] font-extrabold text-[#2563EB] group-hover:text-[#1D4ED8] font-mono transition-colors">
+                    +{data.orderStatus.newAdd.value}
+                  </span>
+                  <span className="text-[11px] text-[#3978F6]">{data.orderStatus.newAdd.unit}</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

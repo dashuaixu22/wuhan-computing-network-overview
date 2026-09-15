@@ -4,9 +4,10 @@ import { DayTrendPoint } from '../types';
 interface ComputeTrendChartProps {
   data: DayTrendPoint[];
   unit: string;
+  title?: string;
 }
 
-export const ComputeTrendChart: React.FC<ComputeTrendChartProps> = ({ data, unit }) => {
+export const ComputeTrendChart: React.FC<ComputeTrendChartProps> = ({ data, unit, title }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hoverPoint, setHoverPoint] = useState<{
     point: DayTrendPoint;
@@ -43,8 +44,8 @@ export const ComputeTrendChart: React.FC<ComputeTrendChartProps> = ({ data, unit
   const plotWidth = width - paddingLeft - paddingRight;
   const plotHeight = height - paddingTop - paddingBottom;
 
-  const minVal = Math.floor(Math.min(...data.map((d) => d.value)) / 200) * 200;
-  const maxVal = Math.ceil(Math.max(...data.map((d) => d.value)) / 200) * 200;
+  const minVal = Math.floor(Math.min(...data.map((d) => d.value)) / 50) * 50;
+  const maxVal = Math.ceil(Math.max(...data.map((d) => d.value)) / 50) * 50;
   const valRange = maxVal - minVal || 1;
 
   const yTicks = [
@@ -54,7 +55,7 @@ export const ComputeTrendChart: React.FC<ComputeTrendChartProps> = ({ data, unit
   ];
 
   const coords = data.map((d, i) => {
-    const x = paddingLeft + (i / (data.length - 1)) * plotWidth;
+    const x = paddingLeft + (i / Math.max(1, data.length - 1)) * plotWidth;
     const y = paddingTop + plotHeight - ((d.value - minVal) / valRange) * plotHeight;
     return { x, y, data: d };
   });
@@ -65,7 +66,16 @@ export const ComputeTrendChart: React.FC<ComputeTrendChartProps> = ({ data, unit
 
   const areaPath = `${linePath} L ${coords[coords.length - 1].x.toFixed(1)} ${paddingTop + plotHeight} L ${coords[0].x.toFixed(1)} ${paddingTop + plotHeight} Z`;
 
-  const xTickIndices = [0, 7, 14, 21, 29];
+  // Dynamically select 4-5 ticks evenly spaced
+  const count = data.length;
+  const rawIndices = [
+    0,
+    Math.floor(count * 0.25),
+    Math.floor(count * 0.5),
+    Math.floor(count * 0.75),
+    count - 1,
+  ];
+  const xTickIndices = Array.from(new Set(rawIndices)).filter((idx) => idx >= 0 && idx < count);
 
   const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
     if (!containerRef.current) return;
@@ -94,7 +104,9 @@ export const ComputeTrendChart: React.FC<ComputeTrendChartProps> = ({ data, unit
     <div className="w-full flex flex-col">
       <div className="flex items-center justify-between mb-1.5">
         <div className="flex items-center gap-2">
-          <span className="text-[11.5px] font-medium text-[#5F6B7A]">近30日总算力规模变化趋势</span>
+          <span className="text-[11.5px] font-medium text-[#5F6B7A]">
+            {title || '近30日总算力规模变化趋势'}
+          </span>
           <span className="text-[10.5px] text-[#9AA5B5]">单位: {unit}</span>
         </div>
         <div className="flex items-center gap-1 text-[10.5px] text-[#9AA5B5]">

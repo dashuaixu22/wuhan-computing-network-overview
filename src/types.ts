@@ -1,4 +1,12 @@
 export type PageStatus = 'normal' | 'loading' | 'empty' | 'error';
+export type TimeDimension = 'cumulative' | 'current-month' | 'history-month';
+
+export interface MonthOption {
+  key: string;
+  label: string;
+  shortLabel: string;
+  asOf: string;
+}
 
 export interface MetricCardItem {
   id: string;
@@ -23,8 +31,10 @@ export interface ComputePowerData {
     name: string;
     value: number;
     unit: string;
+    badge?: string;
     asOf: string;
     trend30Days: DayTrendPoint[];
+    trendTitle?: string;
   };
   newCapacity: {
     name: string;
@@ -34,33 +44,33 @@ export interface ComputePowerData {
     asOf: string;
   };
   productSupply: {
-    total: { name: string; value: number; unit: string; asOf: string };
+    total: { name: string; value: number; unit: string; badge?: string; asOf: string };
     newAdd: { name: string; value: number; unit: string; badge: string; asOf: string };
   };
   orderStatus: {
-    total: { name: string; value: number; unit: string; asOf: string };
+    total: { name: string; value: number; unit: string; badge?: string; asOf: string };
     newAdd: { name: string; value: number; unit: string; badge: string; asOf: string };
   };
 }
 
 export interface ModelSectionData {
   productStatus: {
-    total: { name: string; value: number; unit: string; asOf: string; trend: number[] };
+    total: { name: string; value: number; unit: string; badge?: string; asOf: string; trend: number[] };
     newAdd: { name: string; value: number; unit: string; badge: string; asOf: string };
   };
   orderStatus: {
-    total: { name: string; value: number; unit: string; asOf: string; trend: number[] };
+    total: { name: string; value: number; unit: string; badge?: string; asOf: string; trend: number[] };
     newAdd: { name: string; value: number; unit: string; badge: string; asOf: string };
   };
 }
 
 export interface AgentSectionData {
   productStatus: {
-    total: { name: string; value: number; unit: string; asOf: string; trend: number[] };
+    total: { name: string; value: number; unit: string; badge?: string; asOf: string; trend: number[] };
     newAdd: { name: string; value: number; unit: string; badge: string; asOf: string };
   };
   orderStatus: {
-    total: { name: string; value: number; unit: string; asOf: string; trend: number[] };
+    total: { name: string; value: number; unit: string; badge?: string; asOf: string; trend: number[] };
     newAdd: { name: string; value: number; unit: string; badge: string; asOf: string };
   };
 }

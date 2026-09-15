@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { PageHeader } from './components/PageHeader';
 import { CoreMetricsSection } from './components/CoreMetricsSection';
 import { ComputeSection } from './components/ComputeSection';
@@ -13,23 +13,26 @@ import { LoadingSkeleton, EmptyStateView, ErrorStateView } from './components/St
 import { Toast } from './components/Toast';
 import {
   initialCoreMetrics,
-  initialComputeData,
-  initialModelData,
-  initialAgentData,
+  historyMonthOptions,
+  getProductDataByDimension,
 } from './data';
-import { PageStatus } from './types';
+import { PageStatus, TimeDimension } from './types';
 import { Layers } from 'lucide-react';
 
 export default function App() {
   const [status, setStatus] = useState<PageStatus>('normal');
-  const [lastUpdated] = useState<string>('2026-09-14 08:10');
+  const [timeDimension, setTimeDimension] = useState<TimeDimension>('current-month');
+  const [selectedHistoryMonth, setSelectedHistoryMonth] = useState<string>('2026-08');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [toastType, setToastType] = useState<'info' | 'success'>('info');
 
+  // 核心概览指标：严格保持不变（用户要求：注意只有产商品部分动，核心概览不要动）
   const [coreMetrics] = useState(initialCoreMetrics);
-  const [computeData] = useState(initialComputeData);
-  const [modelData] = useState(initialModelData);
-  const [agentData] = useState(initialAgentData);
+
+  // 产商品数据：随时间维度动态切换
+  const productData = useMemo(() => {
+    return getProductDataByDimension(timeDimension, selectedHistoryMonth);
+  }, [timeDimension, selectedHistoryMonth]);
 
   const showToast = (msg: string, type: 'info' | 'success' = 'info') => {
     setToastMessage(msg);
@@ -37,6 +40,20 @@ export default function App() {
     setTimeout(() => {
       setToastMessage((prev) => (prev === msg ? null : prev));
     }, 2800);
+  };
+
+  const handleTimeDimensionChange = (dimension: TimeDimension, historyMonthKey?: string) => {
+    setTimeDimension(dimension);
+    if (historyMonthKey) {
+      setSelectedHistoryMonth(historyMonthKey);
+    }
+    const label =
+      dimension === 'cumulative'
+        ? '累计总量'
+        : dimension === 'current-month'
+        ? '本月 (2026年09月)'
+        : (historyMonthOptions.find((m) => m.key === (historyMonthKey || selectedHistoryMonth))?.label || '历史月份');
+    showToast(`产商品数据已切换至【${label}】`, 'info');
   };
 
   const handleCardClick = (metricName: string) => {
@@ -49,8 +66,14 @@ export default function App() {
       className="min-h-screen bg-[#F5F7FB] text-[#25324B] px-3 py-3 sm:px-5 sm:py-4 max-w-[1440px] mx-auto transition-all duration-300 overflow-x-hidden"
     >
       <div className="w-full space-y-3.5">
-        {/* 最上方：仅保留“运营概览”及更新时间，已删除刷新按钮 */}
-        <PageHeader lastUpdated={lastUpdated} />
+        {/* 最上方：运营概览、右上角历史月份选择Tab及更新时间 */}
+        <PageHeader
+          lastUpdated={productData.displayAsOf}
+          timeDimension={timeDimension}
+          selectedHistoryMonth={selectedHistoryMonth}
+          historyMonthOptions={historyMonthOptions}
+          onTimeDimensionChange={handleTimeDimensionChange}
+        />
 
         {status === 'loading' && <LoadingSkeleton />}
 
@@ -64,7 +87,7 @@ export default function App() {
 
         {status === 'normal' && (
           <div className="space-y-3.5">
-            {/* 核心概览：与产商品平级 */}
+            {/* 核心概览：与产商品平级，不受月份Tab影响 */}
             <CoreMetricsSection
               metrics={coreMetrics}
               onCardClick={handleCardClick}
@@ -72,30 +95,42 @@ export default function App() {
 
             {/* 产商品 */}
             <section id="products-master-section" className="space-y-3">
-              <div className="flex items-center gap-2">
-                <div className="w-5.5 h-5.5 rounded-[4px] bg-[#EAF1FF] text-[#3978F6] flex items-center justify-center">
-                  <Layers className="w-3.5 h-3.5" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-5.5 h-5.5 rounded-[4px] bg-[#EAF1FF] text-[#3978F6] flex items-center justify-center">
+                    <Layers className="w-3.5 h-3.5" />
+                  </div>
+                  <h2 className="text-[15px] font-bold text-[#25324B] tracking-tight">
+                    产商品
+                  </h2>
+                  <span className="text-[11px] font-normal px-2 py-0.5 rounded-full bg-[#EBF2FE] text-[#3978F6] border border-[#D5E3FA]">
+                    统计范围：{productData.scopeLabel}
+                  </span>
                 </div>
-                <h2 className="text-[15px] font-bold text-[#25324B] tracking-tight">
-                  产商品
-                </h2>
+
+                {timeDimension !== 'cumulative' && (
+                  <span className="text-[11.5px] text-[#5F6B7A] hidden md:inline-flex items-center gap-1">
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#3978F6]" />
+                    总数显示为所选月份值，新增对比上月
+                  </span>
+                )}
               </div>
 
-              {/* 算力模块：重构空间规划、去除右侧多余描述及截至时间 */}
+              {/* 算力模块 */}
               <ComputeSection
-                data={computeData}
+                data={productData.computeData}
                 onCardClick={handleCardClick}
               />
 
-              {/* 模型模块：去除右侧描述、去除迷你趋势线、去除截至时间 */}
+              {/* 模型模块 */}
               <ModelSection
-                data={modelData}
+                data={productData.modelData}
                 onCardClick={handleCardClick}
               />
 
-              {/* 智能体模块：去除右侧描述、去除迷你趋势线、去除截至时间 */}
+              {/* 智能体模块 */}
               <AgentSection
-                data={agentData}
+                data={productData.agentData}
                 onCardClick={handleCardClick}
               />
             </section>

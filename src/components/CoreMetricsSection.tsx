@@ -171,7 +171,7 @@ export const CoreMetricsSection: React.FC<CoreMetricsSectionProps> = ({
             </div>
           </div>
 
-          {/* 下半部分：昨日新增客户 */}
+          {/* 下半部分：相较上月新增客户 */}
           <div className="relative z-10 mt-2.5 pt-2 border-t border-[#E6EAF2]">
             <div
               onClick={(e) => {
@@ -182,7 +182,7 @@ export const CoreMetricsSection: React.FC<CoreMetricsSectionProps> = ({
               title="点击查看新增客户详情"
             >
               <span className="text-[12px] text-[#5F6B7A]">
-                昨日新增客户
+                相较上月新增客户
               </span>
               <div className="flex items-baseline gap-1">
                 <span className="text-[15px] font-bold text-[#3978F6] font-mono leading-none">

@@ -54,7 +54,9 @@ export const AgentSection: React.FC<AgentSectionProps> = ({ data, onCardClick })
               <div>
                 <div className="flex items-center justify-between text-[12px] text-[#5F6B7A] mb-1">
                   <span className="font-semibold text-[#25324B] truncate">{data.productStatus.total.name}</span>
-                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#F0F4FA] text-[#5F6B7A] font-medium">总存量</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#F0F4FA] text-[#5F6B7A] font-medium">
+                    {data.productStatus.total.badge || '总存量'}
+                  </span>
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
                   <span className="text-[23px] font-extrabold text-[#1E293B] group-hover:text-[#3978F6] font-mono transition-colors">
@@ -120,7 +122,9 @@ export const AgentSection: React.FC<AgentSectionProps> = ({ data, onCardClick })
               <div>
                 <div className="flex items-center justify-between text-[12px] text-[#5F6B7A] mb-1">
                   <span className="font-semibold text-[#25324B] truncate">{data.orderStatus.total.name}</span>
-                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#F0F4FA] text-[#5F6B7A] font-medium">累计</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#F0F4FA] text-[#5F6B7A] font-medium">
+                    {data.orderStatus.total.badge || '累计'}
+                  </span>
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
                   <span className="text-[23px] font-extrabold text-[#1E293B] group-hover:text-[#3978F6] font-mono transition-colors">
