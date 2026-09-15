@@ -1,19 +1,18 @@
 import React from 'react';
-import { Box, Layers, ShoppingBag, ChevronRight, TrendingUp } from 'lucide-react';
+import { Box, Layers, ShoppingBag, TrendingUp } from 'lucide-react';
 import { ModelSectionData } from '../types';
 
 interface ModelSectionProps {
   data: ModelSectionData;
-  onCardClick: (metricName: string) => void;
 }
 
-export const ModelSection: React.FC<ModelSectionProps> = ({ data, onCardClick }) => {
+export const ModelSection: React.FC<ModelSectionProps> = ({ data }) => {
   return (
     <div
       id="product-model-module"
-      className="group/model bg-white rounded-[7px] border border-[#E6EAF2] gov-card-shadow p-4 transition-all"
+      className="bg-white rounded-[7px] border border-[#E6EAF2] gov-card-shadow p-4 transition-all"
     >
-      {/* 顶栏：鼠标移入整卡或顶栏时在右侧展现明细详情跳转入口 */}
+      {/* 顶栏 */}
       <div className="flex items-center justify-between pb-3 mb-3.5 border-b border-[#E6EAF2]">
         <div className="flex items-center gap-2">
           <div className="w-6.5 h-6.5 rounded-[5px] bg-[#EAF1FF] text-[#3978F6] flex items-center justify-center">
@@ -21,15 +20,6 @@ export const ModelSection: React.FC<ModelSectionProps> = ({ data, onCardClick })
           </div>
           <h3 className="text-[15px] font-bold text-[#25324B]">模型</h3>
         </div>
-
-        <button
-          onClick={() => onCardClick('模型详情')}
-          className="opacity-0 group-hover/model:opacity-100 transition-opacity duration-200 inline-flex items-center gap-1 text-[12.5px] font-medium text-[#3978F6] hover:text-[#2563EB] hover:underline cursor-pointer focus:opacity-100"
-          title="查看模型明细与详情"
-        >
-          <span>查看明细</span>
-          <ChevronRight className="w-3.5 h-3.5" />
-        </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
@@ -43,13 +33,8 @@ export const ModelSection: React.FC<ModelSectionProps> = ({ data, onCardClick })
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            {/* 模型商品总数（总数卡：纯白底、稳重灰黑字、顶部总数装饰条） */}
-            <div
-              onClick={() => onCardClick(data.productStatus.total.name)}
-              tabIndex={0}
-              role="button"
-              className="bg-white rounded-[6px] p-3 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden min-h-[78px]"
-            >
+            {/* 模型商品总数 */}
+            <div className="bg-white rounded-[6px] p-3 border border-[#DCE4F0] gov-card-shadow flex flex-col justify-between relative overflow-hidden min-h-[78px]">
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
               <div>
                 <div className="flex items-center justify-between text-[12px] text-[#5F6B7A] mb-1">
@@ -59,7 +44,7 @@ export const ModelSection: React.FC<ModelSectionProps> = ({ data, onCardClick })
                   </span>
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[23px] font-extrabold text-[#1E293B] group-hover:text-[#3978F6] font-mono transition-colors">
+                  <span className="text-[23px] font-extrabold text-[#1E293B] font-mono">
                     {data.productStatus.total.value}
                   </span>
                   <span className="text-[12px] text-[#5F6B7A] font-medium">
@@ -69,13 +54,8 @@ export const ModelSection: React.FC<ModelSectionProps> = ({ data, onCardClick })
               </div>
             </div>
 
-            {/* 新增模型商品数量（新增卡：浅蓝活力背景、动态趋势图标与醒目蓝字） */}
-            <div
-              onClick={() => onCardClick(data.productStatus.newAdd.name)}
-              tabIndex={0}
-              role="button"
-              className="bg-[#F4F8FE] rounded-[6px] p-3 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden min-h-[78px]"
-            >
+            {/* 新增模型商品数量 */}
+            <div className="bg-[#F4F8FE] rounded-[6px] p-3 border border-[#D5E3FA] gov-card-shadow flex flex-col justify-between relative overflow-hidden min-h-[78px]">
               <div>
                 <div className="flex items-center justify-between text-[12px] text-[#5F6B7A] font-medium mb-1">
                   <span className="truncate flex items-center gap-1 text-[#4A5D78]">
@@ -89,7 +69,7 @@ export const ModelSection: React.FC<ModelSectionProps> = ({ data, onCardClick })
                   )}
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[23px] font-extrabold text-[#2563EB] group-hover:text-[#1D4ED8] font-mono transition-colors">
+                  <span className="text-[23px] font-extrabold text-[#2563EB] font-mono">
                     +{data.productStatus.newAdd.value}
                   </span>
                   <span className="text-[12px] text-[#3978F6] font-medium">
@@ -111,13 +91,8 @@ export const ModelSection: React.FC<ModelSectionProps> = ({ data, onCardClick })
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            {/* 模型订单总数（总数卡） */}
-            <div
-              onClick={() => onCardClick(data.orderStatus.total.name)}
-              tabIndex={0}
-              role="button"
-              className="bg-white rounded-[6px] p-3 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden min-h-[78px]"
-            >
+            {/* 模型订单总数 */}
+            <div className="bg-white rounded-[6px] p-3 border border-[#DCE4F0] gov-card-shadow flex flex-col justify-between relative overflow-hidden min-h-[78px]">
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
               <div>
                 <div className="flex items-center justify-between text-[12px] text-[#5F6B7A] mb-1">
@@ -127,7 +102,7 @@ export const ModelSection: React.FC<ModelSectionProps> = ({ data, onCardClick })
                   </span>
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[23px] font-extrabold text-[#1E293B] group-hover:text-[#3978F6] font-mono transition-colors">
+                  <span className="text-[23px] font-extrabold text-[#1E293B] font-mono">
                     {data.orderStatus.total.value.toLocaleString()}
                   </span>
                   <span className="text-[12px] text-[#5F6B7A] font-medium">
@@ -137,13 +112,8 @@ export const ModelSection: React.FC<ModelSectionProps> = ({ data, onCardClick })
               </div>
             </div>
 
-            {/* 新增模型订单数量（新增卡） */}
-            <div
-              onClick={() => onCardClick(data.orderStatus.newAdd.name)}
-              tabIndex={0}
-              role="button"
-              className="bg-[#F4F8FE] rounded-[6px] p-3 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden min-h-[78px]"
-            >
+            {/* 新增模型订单数量 */}
+            <div className="bg-[#F4F8FE] rounded-[6px] p-3 border border-[#D5E3FA] gov-card-shadow flex flex-col justify-between relative overflow-hidden min-h-[78px]">
               <div>
                 <div className="flex items-center justify-between text-[12px] text-[#5F6B7A] font-medium mb-1">
                   <span className="truncate flex items-center gap-1 text-[#4A5D78]">
@@ -157,7 +127,7 @@ export const ModelSection: React.FC<ModelSectionProps> = ({ data, onCardClick })
                   )}
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[23px] font-extrabold text-[#2563EB] group-hover:text-[#1D4ED8] font-mono transition-colors">
+                  <span className="text-[23px] font-extrabold text-[#2563EB] font-mono">
                     +{data.orderStatus.newAdd.value}
                   </span>
                   <span className="text-[12px] text-[#3978F6] font-medium">

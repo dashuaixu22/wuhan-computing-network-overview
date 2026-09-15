@@ -56,10 +56,6 @@ export default function App() {
     showToast(`产商品数据已切换至【${label}】`, 'info');
   };
 
-  const handleCardClick = (metricName: string) => {
-    showToast(`查看【${metricName}】详情`, 'info');
-  };
-
   return (
     <main
       id="wuhan-computing-power-overview"
@@ -88,10 +84,7 @@ export default function App() {
         {status === 'normal' && (
           <div className="space-y-3.5">
             {/* 核心概览：与产商品平级，不受月份Tab影响 */}
-            <CoreMetricsSection
-              metrics={coreMetrics}
-              onCardClick={handleCardClick}
-            />
+            <CoreMetricsSection metrics={coreMetrics} />
 
             {/* 产商品 */}
             <section id="products-master-section" className="space-y-3">
@@ -117,22 +110,13 @@ export default function App() {
               </div>
 
               {/* 算力模块 */}
-              <ComputeSection
-                data={productData.computeData}
-                onCardClick={handleCardClick}
-              />
+              <ComputeSection data={productData.computeData} />
 
               {/* 模型模块 */}
-              <ModelSection
-                data={productData.modelData}
-                onCardClick={handleCardClick}
-              />
+              <ModelSection data={productData.modelData} />
 
               {/* 智能体模块 */}
-              <AgentSection
-                data={productData.agentData}
-                onCardClick={handleCardClick}
-              />
+              <AgentSection data={productData.agentData} />
             </section>
           </div>
         )}

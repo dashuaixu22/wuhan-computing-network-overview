@@ -1,19 +1,18 @@
 import React from 'react';
-import { Cpu, Server, Layers, ShoppingBag, ChevronRight, TrendingUp } from 'lucide-react';
+import { Cpu, Server, Layers, ShoppingBag, TrendingUp } from 'lucide-react';
 import { ComputePowerData } from '../types';
 
 interface ComputeSectionProps {
   data: ComputePowerData;
-  onCardClick: (metricName: string) => void;
 }
 
-export const ComputeSection: React.FC<ComputeSectionProps> = ({ data, onCardClick }) => {
+export const ComputeSection: React.FC<ComputeSectionProps> = ({ data }) => {
   return (
     <div
       id="product-compute-module"
-      className="group/compute bg-white rounded-[7px] border border-[#E6EAF2] gov-card-shadow p-3.5 transition-all"
+      className="bg-white rounded-[7px] border border-[#E6EAF2] gov-card-shadow p-3.5 transition-all"
     >
-      {/* 算力模块顶栏：鼠标移入整卡或顶栏时在右侧展现明细详情跳转入口 */}
+      {/* 算力模块顶栏 */}
       <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#E6EAF2]">
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 rounded-[5px] bg-[#EAF1FF] text-[#3978F6] flex items-center justify-center">
@@ -21,15 +20,6 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data, onCardClic
           </div>
           <h3 className="text-[14.5px] font-bold text-[#25324B]">算力</h3>
         </div>
-
-        <button
-          onClick={() => onCardClick('算力详情')}
-          className="opacity-0 group-hover/compute:opacity-100 transition-opacity duration-200 inline-flex items-center gap-1 text-[12px] font-medium text-[#3978F6] hover:text-[#2563EB] hover:underline cursor-pointer focus:opacity-100"
-          title="查看算力明细与详情"
-        >
-          <span>查看明细</span>
-          <ChevronRight className="w-3.5 h-3.5" />
-        </button>
       </div>
 
       {/* 原有六个核心指标：并排3大核心子板块（资源能力、商品供给、订单情况，各2个指标共6个） */}
@@ -45,12 +35,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data, onCardClic
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {/* 1. 总算力规模 */}
-            <div
-              onClick={() => onCardClick(data.totalCapacity.name)}
-              tabIndex={0}
-              role="button"
-              className="bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-            >
+            <div className="bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] gov-card-shadow flex flex-col justify-between relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
               <div>
                 <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] mb-0.5">
@@ -60,7 +45,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data, onCardClic
                   </span>
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[20px] font-extrabold text-[#1E293B] group-hover:text-[#3978F6] font-mono transition-colors">
+                  <span className="text-[20px] font-extrabold text-[#1E293B] font-mono">
                     {data.totalCapacity.value.toLocaleString()}
                   </span>
                   <span className="text-[11px] text-[#5F6B7A] font-medium">
@@ -71,12 +56,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data, onCardClic
             </div>
 
             {/* 2. 新增算力规模 */}
-            <div
-              onClick={() => onCardClick(data.newCapacity.name)}
-              tabIndex={0}
-              role="button"
-              className="bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-            >
+            <div className="bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] gov-card-shadow flex flex-col justify-between relative overflow-hidden">
               <div>
                 <div className="flex items-center justify-between text-[11.5px] text-[#3978F6] mb-0.5">
                   <span className="font-medium text-[#4A5D78] flex items-center gap-1">
@@ -90,7 +70,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data, onCardClic
                   )}
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[20px] font-extrabold text-[#2563EB] group-hover:text-[#1D4ED8] font-mono transition-colors">
+                  <span className="text-[20px] font-extrabold text-[#2563EB] font-mono">
                     +{data.newCapacity.value}
                   </span>
                   <span className="text-[11px] text-[#3978F6] font-medium">
@@ -113,12 +93,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data, onCardClic
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {/* 3. 算力商品总数 */}
-            <div
-              onClick={() => onCardClick(data.productSupply.total.name)}
-              tabIndex={0}
-              role="button"
-              className="bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-            >
+            <div className="bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] gov-card-shadow flex flex-col justify-between relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
               <div>
                 <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] mb-0.5">
@@ -128,7 +103,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data, onCardClic
                   </span>
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[20px] font-extrabold text-[#1E293B] group-hover:text-[#3978F6] font-mono transition-colors">
+                  <span className="text-[20px] font-extrabold text-[#1E293B] font-mono">
                     {data.productSupply.total.value}
                   </span>
                   <span className="text-[11px] text-[#5F6B7A]">{data.productSupply.total.unit}</span>
@@ -137,12 +112,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data, onCardClic
             </div>
 
             {/* 4. 新增算力商品数量 */}
-            <div
-              onClick={() => onCardClick(data.productSupply.newAdd.name)}
-              tabIndex={0}
-              role="button"
-              className="bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-            >
+            <div className="bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] gov-card-shadow flex flex-col justify-between relative overflow-hidden">
               <div>
                 <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] font-medium mb-0.5">
                   <span className="truncate flex items-center gap-1 text-[#4A5D78]">
@@ -156,7 +126,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data, onCardClic
                   )}
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[20px] font-extrabold text-[#2563EB] group-hover:text-[#1D4ED8] font-mono transition-colors">
+                  <span className="text-[20px] font-extrabold text-[#2563EB] font-mono">
                     +{data.productSupply.newAdd.value}
                   </span>
                   <span className="text-[11px] text-[#3978F6]">{data.productSupply.newAdd.unit}</span>
@@ -177,12 +147,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data, onCardClic
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {/* 5. 算力订单总数 */}
-            <div
-              onClick={() => onCardClick(data.orderStatus.total.name)}
-              tabIndex={0}
-              role="button"
-              className="bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] hover:border-[#3978F6]/60 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-            >
+            <div className="bg-white rounded-[5px] p-2.5 border border-[#DCE4F0] gov-card-shadow flex flex-col justify-between relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#3978F6]/80" />
               <div>
                 <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] mb-0.5">
@@ -192,7 +157,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data, onCardClic
                   </span>
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[20px] font-extrabold text-[#1E293B] group-hover:text-[#3978F6] font-mono transition-colors">
+                  <span className="text-[20px] font-extrabold text-[#1E293B] font-mono">
                     {data.orderStatus.total.value.toLocaleString()}
                   </span>
                   <span className="text-[11px] text-[#5F6B7A]">{data.orderStatus.total.unit}</span>
@@ -201,12 +166,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data, onCardClic
             </div>
 
             {/* 6. 新增算力订单数量 */}
-            <div
-              onClick={() => onCardClick(data.orderStatus.newAdd.name)}
-              tabIndex={0}
-              role="button"
-              className="bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] hover:border-[#3978F6]/70 gov-card-shadow gov-card-shadow-hover transition-all cursor-pointer group flex flex-col justify-between relative overflow-hidden"
-            >
+            <div className="bg-[#F4F8FE] rounded-[5px] p-2.5 border border-[#D5E3FA] gov-card-shadow flex flex-col justify-between relative overflow-hidden">
               <div>
                 <div className="flex items-center justify-between text-[11.5px] text-[#5F6B7A] font-medium mb-0.5">
                   <span className="truncate flex items-center gap-1 text-[#4A5D78]">
@@ -220,7 +180,7 @@ export const ComputeSection: React.FC<ComputeSectionProps> = ({ data, onCardClic
                   )}
                 </div>
                 <div className="flex items-baseline gap-1 my-0.5">
-                  <span className="text-[20px] font-extrabold text-[#2563EB] group-hover:text-[#1D4ED8] font-mono transition-colors">
+                  <span className="text-[20px] font-extrabold text-[#2563EB] font-mono">
                     +{data.orderStatus.newAdd.value}
                   </span>
                   <span className="text-[11px] text-[#3978F6]">{data.orderStatus.newAdd.unit}</span>
